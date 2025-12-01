@@ -7,7 +7,7 @@ export const curriculumData = {
     linkedin: "www.linkedin.com/in/jainer-mendoza-615589396",
     github: "github.com/jainei27",
     location: "Caicedonia, Valle del Cauca, Colombia",
-    about: "Desarrollador de software con experiencia en la creación de aplicaciones web modernas, construcción de interfaces eficientes y desarrollo de sistemas completos bajo arquitectura cliente-servidor. He participado activamente en proyectos académicos destacados y formo parte del equipo de desarrollo del Sistema de Gestión Académica para el Colegio Rafael Pombo. Apasionado por el desarrollo frontend con React y Vue.js, y el backend con Node.js y Django."
+    about: "Soy estudiante de Tecnología en Desarrollo de Software y he participado en varios proyectos académicos donde he podido aplicar lo que voy aprendiendo. He trabajado principalmente en el desarrollo frontend con React y en el backend con Django, creando interfaces y funciones básicas para sistemas web. Hago parte del grupo de desarrolladores que está construyendo el sistema de gestión académica del Colegio Rafael Pombo como proyecto universitario. Me gusta aprender nuevas tecnologías y mejorar mis habilidades cada día."
   },
   
   skills: {
@@ -48,9 +48,9 @@ export const curriculumData = {
       position: "Desarrollador Full Stack",
       company: "Proyectos Académicos - Universidad del Valle",
       responsibilities: [
-        "Desarrollo de aplicaciones web completas utilizando React + Vite y Django REST Framework.",
+        "Desarrollo de aplicaciones web utilizando React + Vite y Django REST Framework.",
         "Implementación de arquitecturas cliente-servidor con APIs REST y autenticación JWT.",
-        "Diseño de interfaces de usuario tipo dashboard con componentes reutilizables.",
+        "Diseño de interfaces de usuario tipo dashboard.",
         "Modelado de bases de datos relacionales en MySQL y documentación con diagramas UML.",
         "Colaboración en equipos utilizando metodologías ágiles y control de versiones con Git."
       ]
@@ -77,7 +77,7 @@ export const curriculumData = {
       date: "2023 – 2026",
       description: "Formación especializada en desarrollo de software, bases de datos, programación orientada a objetos y metodologías ágiles. Participación activa en proyectos destacados como el Sistema de Gestión Académica para el Colegio Rafael Pombo.",
       skills: ["Desarrollo Web", "Bases de Datos", "Programación", "Metodologías Ágiles"],
-      certificateUrl: "#" // Sin certificado aún
+      certificateUrl: "#"
     },
     {
       icon: "chart-bar",
@@ -95,7 +95,25 @@ export const curriculumData = {
       date: "Septiembre - Octubre 2022",
       description: "Curso especializado en diseño gráfico utilizando Corel Draw. Enfoque en principios de diseño, composición visual, manejo de color y creación de piezas gráficas para entornos educativos y culturales.",
       skills: ["Corel Draw", "Diseño Gráfico", "Composición", "Color", "Vectorización"],
-      certificateUrl: "/images/certificados/Diseño-grafico.jpeg" // ← Cambiado al nombre correcto
+      certificateUrl: "/images/certificados/Diseño-grafico.jpeg"
+    },
+    {
+      icon: "paint-brush",
+      title: "Fundamentos de Diseño Gráfico",
+      institution: "Platzi",
+      date: "2023",
+      description: "Curso especializado en los principios fundamentales del diseño gráfico: teoría del color, tipografía, composición visual y psicología del diseño. Enfoque en procesos creativos y comunicación visual efectiva.",
+      skills: ["Teoría del Color", "Tipografía", "Composición", "Psicología del Diseño", "Creatividad"],
+      certificateUrl: "/images/certificados/Diseño_G_Platzi.jpeg"
+    },
+    {
+      icon: "language",
+      title: "Inglés A2: Descriptions and Comparisons",
+      institution: "Platzi",
+      date: "2024",
+      description: "Certificación de inglés nivel A2 según el Marco Común Europeo. Especializado en descripciones detalladas, comparaciones y conversaciones sobre temas cotidianos utilizando estructuras gramaticales básicas.",
+      skills: ["Inglés A2", "Descripciones", "Comparaciones", "Conversación Básica", "Gramática Inglesa"],
+      certificateUrl: "/images/certificados/Ingles_platzi.jpeg"
     }
   ],
   
