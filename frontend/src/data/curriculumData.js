@@ -39,7 +39,7 @@ export const curriculumData = {
   
   languages: [
     { name: "Español", level: "Nativo", dots: 5 },
-    { name: "Inglés", level: "Intermedio (B1)", dots: 3 }
+    { name: "Inglés", level: "Intermedio (A2)", dots: 3 }
   ],
   
   experience: [
@@ -123,24 +123,21 @@ export const curriculumData = {
       title: "Sistema de Gestión Académica - Colegio Rafael Pombo",
       description: "Sistema web completo para la gestión académica del Colegio Rafael Pombo en Tuluá. Desarrollado con arquitectura moderna, incluye módulos para estudiantes, calificaciones, horarios y reportes. Implementa autenticación JWT, dashboard administrativo y generación de reportes en PDF/Excel.",
       technologies: ["React", "Vite", "Django REST Framework", "MySQL", "JWT", "Figma", "UML"],
-      github: "https://github.com/Karatsuyu/Proyecto-PetroGas-Oficial.git",
-      demo: "https://www.figma.com/file/TU_ID_DEL_PROYECTO/..."
+
     },
     {
       icon: "database",
       title: "Sistema de Gestión Integral - Proyecto Universitario",
       description: "Aplicación web full-stack desarrollada como proyecto académico. Frontend en React + Vite con diseño tipo dashboard, backend en Django REST Framework con APIs REST. Incluye autenticación por roles, operaciones CRUD completas, base de datos MySQL y documentación con diagramas UML.",
       technologies: ["React", "Vite", "Django", "Django REST", "MySQL", "JavaScript", "CSS3", "UML"],
-      github: "https://github.com/Karatsuyu/Proyecto-PetroGas-Oficial.git",
-      demo: "https://www.figma.com/file/TU_ID_DEL_PROYECTO/..."
+
     },
     {
       icon: "laptop-code",
       title: "Portafolio Personal Profesional", 
       description: "Sitio web personal desarrollado con React, diseñado con enfoque en experiencia de usuario moderna. Incluye animaciones CSS, diseño completamente responsivo, formulario de contacto funcional con EmailJS y optimización de rendimiento.",
       technologies: ["React", "CSS3", "JavaScript", "EmailJS", "Responsive Design"],
-      github: "https://github.com/jainei27",
-      demo: "#"
+
     }
   ]
 };

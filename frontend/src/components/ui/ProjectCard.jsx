@@ -14,14 +14,6 @@ const ProjectCard = ({ project }) => {
             <span key={index} className="tech-tag">{tech}</span>
           ))}
         </div>
-        <div className="project-links">
-          <a href={project.github} className="project-link" target="_blank" rel="noopener noreferrer">
-            <i className="fab fa-github"></i> Código
-          </a>
-          <a href={project.demo} className="project-link" target="_blank" rel="noopener noreferrer">
-            <i className="fas fa-external-link-alt"></i> Demo
-          </a>
-        </div>
       </div>
     </div>
   );
