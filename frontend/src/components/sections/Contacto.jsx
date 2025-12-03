@@ -343,15 +343,6 @@ const Contacto = () => {
                 'Enviar Mensaje'
               )}
             </button>
-            
-            {/* Información adicional */}
-            <div className="process-info">
-              <small>
-                <i className="fas fa-paper-plane"></i> El mensaje se enviará por email
-                <br />
-                <i className="fas fa-database"></i> Los datos también se guardarán en la base de datos
-              </small>
-            </div>
           </form>
         </div>
       </div>
