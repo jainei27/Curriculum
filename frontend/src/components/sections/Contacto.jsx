@@ -14,12 +14,16 @@ const Contacto = () => {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState('');
+  const [submitMessage, setSubmitMessage] = useState(''); // Nueva variable para mensajes detallados
 
   const EMAILJS_CONFIG = {
     SERVICE_ID: 'service_fvflfq9',
     TEMPLATE_ID: 'template_5cgx8ka',  
     PUBLIC_KEY: 'ROTOBI0XJJNsRpdOm'
   };
+
+  // URL de tu API en Render
+  const SUPABASE_API_URL = 'https://curriculum-cnen.onrender.com/api/contact';
 
   const validateForm = () => {
     const newErrors = {};
@@ -71,6 +75,54 @@ const Contacto = () => {
 
     if (submitStatus) {
       setSubmitStatus('');
+      setSubmitMessage('');
+    }
+  };
+
+  // Función para guardar en Supabase
+  const saveToSupabase = async (data) => {
+    console.log('🔄 Intentando guardar en Supabase...');
+    console.log('🌐 URL:', SUPABASE_API_URL);
+    console.log('📦 Datos:', data);
+    
+    try {
+      const response = await fetch(SUPABASE_API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          subject: data.subject,
+          message: data.message
+        })
+      });
+
+      console.log('📥 Status:', response.status);
+      console.log('📥 OK?', response.ok);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('❌ Error del servidor:', errorText);
+        throw new Error(`HTTP ${response.status}: ${errorText}`);
+      }
+
+      const result = await response.json();
+      console.log('📊 Respuesta completa:', result);
+      
+      return {
+        success: true,
+        data: result.data,
+        message: result.message
+      };
+      
+    } catch (error) {
+      console.error('💥 Error en fetch:', error);
+      return {
+        success: false,
+        error: error.message
+      };
     }
   };
 
@@ -78,13 +130,18 @@ const Contacto = () => {
     e.preventDefault();
     
     if (!validateForm()) {
+      setSubmitStatus('error');
+      setSubmitMessage('Por favor, corrige los errores en el formulario');
       return;
     }
 
     setIsSubmitting(true);
     setSubmitStatus('');
+    setSubmitMessage('');
 
     try {
+      console.log('🚀 ===== INICIANDO ENVÍO COMPLETO =====');
+      
       // PARÁMETROS ACTUALIZADOS - COINCIDEN EXACTAMENTE CON TU PLANTILLA
       const templateParams = {
         name: formData.name,         // ← Para {[name]}
@@ -93,8 +150,10 @@ const Contacto = () => {
         message: formData.message    // ← Para {[message]}
       };
 
-      console.log('Enviando con estos parámetros:', templateParams);
+      console.log('📤 [1/2] Enviando email con EmailJS...');
+      console.log('📧 Parámetros EmailJS:', templateParams);
 
+      // 1. ENVIAR EMAIL CON EMAILJS
       await emailjs.send(
         EMAILJS_CONFIG.SERVICE_ID,
         EMAILJS_CONFIG.TEMPLATE_ID,
@@ -102,14 +161,49 @@ const Contacto = () => {
         EMAILJS_CONFIG.PUBLIC_KEY
       );
 
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', subject: '', message: '' });
+      console.log('✅ [1/2] EmailJS EXITOSO');
+      
+      // 2. GUARDAR EN SUPABASE
+      const supabaseResult = await saveToSupabase(formData);
+      
+      if (supabaseResult.success) {
+        console.log('✅ [2/2] Supabase EXITOSO');
+        console.log('🎉 Datos guardados con ID:', supabaseResult.data?.id);
+        
+        // Éxito completo
+        setSubmitStatus('success');
+        setSubmitMessage('✅ ¡Mensaje enviado con éxito! Te contactaré pronto. Los datos se han guardado correctamente.');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+        
+      } else {
+        console.warn('⚠️ [2/2] Supabase con error, pero email enviado');
+        setSubmitStatus('warning');
+        setSubmitMessage('✅ Email enviado con éxito, pero hubo un problema al guardar los datos en la base de datos.');
+      }
       
     } catch (error) {
-      console.error('Error detallado:', error);
-      setSubmitStatus('error');
+      console.error('💥 ERROR en el proceso:', error);
+      console.error('📌 Tipo de error:', error.name);
+      console.error('📌 Mensaje:', error.message);
+      
+      // Verificar si es error de EmailJS o general
+      if (error.toString().includes('EmailJS')) {
+        setSubmitStatus('error');
+        setSubmitMessage('❌ Error al enviar el email. Por favor, intenta nuevamente.');
+      } else {
+        setSubmitStatus('warning');
+        setSubmitMessage('⚠️ Hubo un problema al procesar tu mensaje. Por favor, inténtalo más tarde.');
+      }
+      
     } finally {
+      console.log('🏁 ===== FIN DEL PROCESO =====');
       setIsSubmitting(false);
+      
+      // Limpiar mensajes después de 8 segundos
+      setTimeout(() => {
+        setSubmitStatus('');
+        setSubmitMessage('');
+      }, 8000);
     }
   };
 
@@ -164,14 +258,22 @@ const Contacto = () => {
         <div className="contact-form">
           <h3>Envíame un Mensaje</h3>
           
+          {/* Mostrar mensajes de estado */}
           {submitStatus === 'success' && (
             <div className="success-message">
-              ✅ ¡Mensaje enviado con éxito! Te contactaré pronto.
+              {submitMessage || '✅ ¡Mensaje enviado con éxito! Te contactaré pronto.'}
             </div>
           )}
+          
+          {submitStatus === 'warning' && (
+            <div className="warning-message">
+              ⚠️ {submitMessage || 'Email enviado, pero hubo un problema al guardar en la base de datos.'}
+            </div>
+          )}
+          
           {submitStatus === 'error' && (
             <div className="error-message-general">
-              ❌ Error al enviar. Por favor, intenta nuevamente.
+              ❌ {submitMessage || 'Error al enviar. Por favor, intenta nuevamente.'}
             </div>
           )}
 
@@ -241,6 +343,15 @@ const Contacto = () => {
                 'Enviar Mensaje'
               )}
             </button>
+            
+            {/* Información adicional */}
+            <div className="process-info">
+              <small>
+                <i className="fas fa-paper-plane"></i> El mensaje se enviará por email
+                <br />
+                <i className="fas fa-database"></i> Los datos también se guardarán en la base de datos
+              </small>
+            </div>
           </form>
         </div>
       </div>
